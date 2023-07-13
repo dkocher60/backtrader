@@ -1340,7 +1340,10 @@ class Cerebro(with_metaclass(MetaParams, object)):
                 for a in strat.analyzers:
                     _optimize_anlz_return(a)
 
-                oreturn = OptReturn(strat.params, analyzers=strat.analyzers, strategycls=type(strat))
+                # DAK 20230713 custom output parameters
+                params = getattr(strat, "out_params", dict(strat.params._getitems()))
+
+                oreturn = OptReturn(params, analyzers=strat.analyzers, strategycls=type(strat))
                 results.append(oreturn)
 
             return results
